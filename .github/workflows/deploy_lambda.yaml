@@ -49,6 +49,7 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
+          echo "construyendo docker"
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
@@ -59,5 +60,5 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
+          echo "desplegando lambda"
           aws lambda update-function-code --region eu-west-3 --function-name funDocker --image-uri $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          
