@@ -60,3 +60,4 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           aws lambda update-function-code --region eu-west-3 --function-name funDocker --image-uri $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        # La función lambda "funDocker" también debe existir previamente
